@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://brrddvr1nu1hi"]
+
+[ext_resource type="PackedScene" uid="uid://jsaaxwnaaknv" path="res://entities/player/player.tscn" id="1_0ccri"]
+[ext_resource type="Texture2D" uid="uid://kocxjy8msurx" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_q20vh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fp2r3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0bs06"]
+sky_material = SubResource("ProceduralSkyMaterial_fp2r3")
+
+[sub_resource type="Environment" id="Environment_4qapu"]
+background_mode = 2
+sky = SubResource("Sky_0bs06")
+ambient_light_source = 2
+ambient_light_color = Color(0.25, 0.25, 0.25, 1)
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xfogr"]
+albedo_texture = ExtResource("2_q20vh")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4qapu")
+
+[node name="player" parent="." instance=ExtResource("1_0ccri")]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+material_override = SubResource("StandardMaterial3D_xfogr")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(50, 8, 50)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+operation = 2
+size = Vector3(49, 8, 49)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -13)
+size = Vector3(18, 6, 4)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, -9)
+size = Vector3(3, 11, 1)
